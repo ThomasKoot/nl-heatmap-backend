@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  nl_heat
+
+Globals:
+  Function:
+    Timeout: 20
+
+Resources:
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: src/
+      Handler: app.handler
+      Runtime: python3.8
+      Policies:
+        Statement: 
+          Sid: "nlHeatLambdaAllowS3"
+          Effect: Allow
+          Action:
+            - 's3:PutObject'
+            - 's3:GetObject'
+          Resource: "arn:aws:s3:::dieters-content-server/nl_heat/*"
+      Environment:
+        Variables:
+          API_KEY : 'eyJvcmciOiI1ZTU1NGUxOTI3NGE5NjAwMDEyYTNlYjEiLCJpZCI6IjlmOTZmMTUzMDVhZTQ4NmI5NDIxOGZlY2NhYmE3NzkxIiwiaCI6Im11cm11cjEyOCJ9'
+          BUCKET: 'dieters-content-server'
+          BASE_PATH : 'nl_heat/data/'
+          KNMI_ENDPOINT : 'https://api.dataplatform.knmi.nl/open-data/v1/datasets/Actuele10mindataKNMIstations/versions/2/files'
+      Events:
+        UpdateTrigger:
+          Type: Schedule
+          Properties:
+            Schedule: 'rate(1 hour)'
+
+
