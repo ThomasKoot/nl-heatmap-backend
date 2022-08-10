@@ -7,11 +7,6 @@ import re
 import os
 import api_calls
 
-# os.environ['API_KEY'] = 'eyJvcmciOiI1ZTU1NGUxOTI3NGE5NjAwMDEyYTNlYjEiLCJpZCI6IjlmOTZmMTUzMDVhZTQ4NmI5NDIxOGZlY2NhYmE3NzkxIiwiaCI6Im11cm11cjEyOCJ9'
-# os.environ['BUCKET'] = 'dieters-content-server'
-# os.environ['BASE_PATH'] = 'nl_heat/data/'
-# os.environ['KNMI_ENDPOINT'] = 'https://api.dataplatform.knmi.nl/open-data/v1/datasets/Actuele10mindataKNMIstations/versions/2/files'
-
 def handler(event, context):
 
     current = s3_handlers.get_current()
